@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+        <style>
+            body { font-family: 'Poppins', sans-serif; }
+            
+            #btn-alert {
+                border: none;
+                border-radius: 5px;
+                padding: 7px 10px;
+                background-color: rgb(37, 116, 226);
+                font-size: 1.3em;
+                color: #fff;
+                cursor: pointer;
+                transition: 0.2s;
+                position: fixed;
+                left: 45%;
+                top: 45%;
+            }
+            
+            #btn-alert:hover {
+                opacity: 0.8;
+            }
+            
+            #btn-alert:focus {
+                outline: rgb(37, 116, 226) solid 3px;
+                outline-offset: 3px;
+            }
+            
+            @media (max-width: 576px) {
+                #btn-alert {
+                    left: 38%;
+                }
+            }
+        </style>
+    
+<title>Document</title>
+
+</head>
+<body>
+<button id="btn-allert" onclick="munculinAlert()">klik aku ></button>
+    <script>
+    async function munculinAlert () {
+        
+    
+      await  Swal.fire({
+  title: "rawrrr selamat pagi sabrinaaa...",
+  text: "gimana tidurnya nyenyak apa tidakk, klik ok ya kalo mau lanjut",
+  imageUrl: "https://unsplash.it/400/200",
+  imageWidth: 400,
+  imageHeight: 200,
+  imageAlt: "p"
+});
+
+await Swal.fire({
+  title: "emang yakin mau lanjut",
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonText: "yakin dong",
+  denyButtonText: `ga yakin`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("okee deh lanjut yaaa", "", "sipp");
+  } else if (result.isDenied) {
+    Swal.fire("ogitu ga yakin", "", "ckptw");
+  }
+});
+
+await Swal.fire({
+  title: "kalo boleh tau namanya siapa",
+  input: "text",
+  inputAttributes: {
+    autocapitalize: "off"
+  },
+  showCancelButton: true,
+  confirmButtonText: "kirim dehh",
+  showLoaderOnConfirm: true,
+  preConfirm: async (login) => {
+    try {
+      const githubUrl = `
+        https://api.github.com/users/${login}
+      `;
+      const response = await fetch(githubUrl);
+      if (!response.ok) {
+        return Swal.showValidationMessage(`
+          ${JSON.stringify(await response.json())}
+        `);
+      }
+      return response.json();
+    } catch (error) {
+      Swal.showValidationMessage(`
+        Request failed: ${error}
+      `);
+    }
+  },
+  allowOutsideClick: () => !Swal.isLoading()
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire({
+      title: `${result.value.login} namanya `,
+      imageUrl: result.value.avatar_url
+    });
+  }
+});
+await Swal.fire ({
+  title: "oke deh aku kasih kamu pertanyaan dulu yaa 5 soal",
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonText: "oke deh",
+  denyButtonText: `ga mls`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("siap siiap", "", "sipp");
+  } else if (result.isDenied) {
+    Swal.fire("ogitu mls", "", "ckptw");
+  }
+}); 
+   
+const { value: password } = await Swal.fire({
+  title: "masukin pw = clue nya tanggal hari ini",
+  input: "password",
+  inputLabel: "Password",
+  inputPlaceholder: "Enter your password",
+  inputAttributes: {
+    maxlength: "10",
+    autocapitalize: "off",
+    autocorrect: "on"
+  }
+});
+if (password) {
+  Swal.fire(`Entered password: 5 januari 2025`);
+}
+  
+await Swal.fire({
+  title: "seberapa mood kamu hari ini?",
+  icon: "question",
+  input: "range",
+  inputLabel: "mood ",
+  inputAttributes: {
+    min: "0",
+    max: "100000",
+    step: "1"
+  },
+  inputValue: 25
+});
+
+const { value: email } = await Swal.fire({
+  title: "masukin email yang buat ini web , hayo apaa ",
+  input: "email",
+  inputLabel: "Your email address",
+  inputPlaceholder: "Enter your email address"
+});
+if (email) {
+  Swal.fire(`Entered email: ${email }`);
+}
+
+await Swal.fire({
+  title: "do you love ael ",
+  showDenyButton: true,
+  confirmButtonText: "yoi",
+  denyButtonText: `najis`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("asikk, love u", "", "love u");
+  } else if (result.isDenied) {
+    Swal.fire("ogah bgt punya cowo kaya lu", "", "hoho");
+  }
+});
+ 
+await Swal.fire({
+  title: "coba berapa range nya",
+  icon: "question",
+  input: "range",
+  inputLabel: "sebarapa",
+  inputAttributes: {
+    min: "1",
+    max: "5",
+    step: "1"
+  },
+  inputValue: 25
+});
+await Swal.fire("oke ka farrel ngucapin tnkyu, lnjjut yaa");
+await Swal.fire("terakhir ni");
+await Swal.fire("terakhir yaa");
+
+await Swal.fire({
+  title: "tanggal 5 Januari spesial banget yaaaa, pasti ada bidadari yang lagi dilahirin di tanggal ini yaaaa",
+  showDenyButton: true,
+  confirmButtonText: "iyaaaa ka",
+  denyButtonText: `iyaaaa`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("ka farrel tau kan", "", "love u");
+  } else if (result.isDenied) {
+    Swal.fire("pasti bidadarinya kamu", "", "hoho");
+
+  }
+});
+
+const { value: accept } = await Swal.fire({
+  title: "HAPPY BIRTHDAY WINONA SABRINA ",
+  input: "checkbox",
+  inputValue: 1,
+  inputPlaceholder: `
+    I agree with the terms and conditions
+  `,
+  confirmButtonText: `
+    Continue&nbsp;<i class="fa fa-arrow-right"></i>
+  `,
+  inputValidator: (result) => {
+    return !result && "You need to agree with T&C";
+  }
+});
+if (accept) {
+  Swal.fire("You agreed with T&C :)");
+}
+await Swal.fire("SEMOGA");
+await Swal.fire("MENJADI ANAK YANG BERBAKTI KEPADA ORANG TUA");
+await Swal.fire("TAMBAH CANTIK");
+await Swal.fire("TAMBAH IMANNYA");
+await Swal.fire("TAMBAH PINTERNYA");
+await Swal.fire("TAMBAH SEHATT");
+await Swal.fire("TAMBAH LANGGENG HUBUNGANNYA");
+
+await Swal.fire({
+  title: "BTW KAMU CITA CITANYA JADI YANG JADI WASILAH BAGI ORG LAGI SAKIT BUKAN SI, APA DEH NAMANYA",
+  showDenyButton: true,
+  confirmButtonText: "DOKTER KAK",
+  denyButtonText: `DUKUN KAK`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("SEMOGA TERCAPAI YAAA", "", "success");
+  } else if (result.isDenied) {
+    Swal.fire("SEREMM", "", "info");
+  }
+});
+await Swal.fire("OWALAH DOKTERRRR, SEMOGA TERCAPAI YAAA AAMIINN");
+await Swal.fire("LANJUT YEEE");
+await Swal.fire("SEMOGA GA BM TRUS SAMA AKU");
+await Swal.fire("TERAKHIR NIH YAAA");
+await Swal.fire("JANGAN SUKA MINUM ES, SAMA JANGAN LUPA MINUM AIR PUTIH SEGALON");
+await Swal.fire("YHAHAHAYUK UNTUK KATA KATA SELANJUTNYA HUBUNGI 081513122923 YAAAA");
+await Swal.fire("TQ SABRINAA 143 224");
+
+    }
+
+
+
+    </script>
+</body>
+</html>
